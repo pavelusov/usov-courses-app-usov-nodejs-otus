@@ -8,9 +8,11 @@
           "browsers": ["last 3 versions"]
         }
       }
-    ]
+    ],
+    "babel-preset-react"
   ],
   "plugins": [
-    "transform-runtime"
+    "transform-runtime",
+    "react-hot-loader/babel"
   ]
 }
