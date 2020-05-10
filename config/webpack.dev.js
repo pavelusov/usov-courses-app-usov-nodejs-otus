@@ -1,10 +1,17 @@
 const path = require('path');
 const webpack = require('webpack');
 const htmlWebpackPlugin = require('html-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
   entry: {
-    main: ['babel-polyfill', './src/main.js']
+    main: [
+      'babel-polyfill',
+      'babel-runtime/regenerator',
+      'react-hot-loader/patch',
+      'webpack-hot-middleware/client?reload=true',
+      './src/main.js',
+    ]
     // main: ['core-js/fn/promise', './src/main.js']
   },
   mode: 'development',
@@ -54,6 +61,6 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new htmlWebpackPlugin({
       template: './src/index.html'
-    })
+    }),
   ]
 };
