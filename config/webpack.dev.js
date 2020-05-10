@@ -1,4 +1,6 @@
 const path = require('path');
+const webpack = require('webpack');
+const htmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -33,18 +35,6 @@ module.exports = {
         test: /\.html$/,
         use: [
           {
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]'
-            }
-          },
-          {
-            loader: 'extract-loader',
-            options: {
-              publicPath: "../"
-            }
-          },
-          {
             loader: 'html-loader',
           }
         ]
@@ -56,6 +46,13 @@ module.exports = {
     overlay: true,
     stats: {
       colors: true,
-    }
-  }
+    },
+    hot: true
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new htmlWebpackPlugin({
+      template: './src/index.html'
+    })
+  ]
 };
