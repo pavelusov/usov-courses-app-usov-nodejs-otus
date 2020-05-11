@@ -1,0 +1,22 @@
+[
+  {
+    "link": "/",
+    "title": "Home"
+  },
+  {
+    "link": "/courses",
+    "title": "Courses"
+  },
+  {
+    "link": "/classroom",
+    "title": "Classroom"
+  },
+  {
+    "link": "/login",
+    "title": "Log in"
+  },
+  {
+    "link": "/signup",
+    "title": "Sign Up"
+  }
+]

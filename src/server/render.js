@@ -1,22 +1,19 @@
-import React from "react";
-import { renderToString } from "react-dom/server";
-const App = require('../components/App').default;
-export default () => (req, res) => {
-  const html = renderToString(
-    <App />
-  );
+import React from 'react';
+import { renderToString } from 'react-dom/server';
 
+import router from '../routes/router';
 
-  res.send(`<html lang="en">
+export default () => async (req, res) => {
+  const Component = await router.resolve({pathname: '/'});
+
+  res.send(`<!DOCTYPE html>
+    <html lang="en">
     <head>
         <title>Title</title>
         <link rel="stylesheet" type="text/css" href="/main.css">
     </head>
     <body>
-      <div id="root">${html}</div>
-      <div class="profile">
-          <h1 class="title">Pavel build</h1>
-      </div>
+      <div id="root">${renderToString(<Component />)}</div> 
       <script src="vendor-bundle.js"></script>
       <script src="main-bundle.js"></script>
     </body>

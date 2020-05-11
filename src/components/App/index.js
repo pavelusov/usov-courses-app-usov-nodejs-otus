@@ -1,22 +1,13 @@
 import React, { Component } from 'react';
+import Layout from '../Layout';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      c: 1
-    };
-  }
-
-  onClick( ) {
-    const { c } = this.state;
-    this.setState({c: c + 1})
-  }
-
   render() {
-    const { c } = this.state;
+    const { children } = this.props;
     return (
-      <div onClick={this.onClick.bind(this)}>App Component hello {c}</div>
+      <Layout>
+        {children}
+      </Layout>
     )
   }
 }

@@ -1,21 +1,18 @@
 const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
   name: 'client',
   entry: {
     vendor: ['react', 'react-dom'],
     main: [
-      // 'babel-polyfill',
+      'babel-polyfill',
       'react-hot-loader/patch',
       'babel-runtime/regenerator',
       // 'babel-register',
       'webpack-hot-middleware/client?reload=true',
       './src/main.js'],
-
-    // main: ['core-js/fn/promise', './src/main.js']
   },
   mode: 'development',
   output: {
@@ -71,7 +68,8 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       "process.env": {
-        NODE_ENV: JSON.stringify('development')
+        NODE_ENV: JSON.stringify('development'),
+        BROWSER: true,
       }
     }),
   ]

@@ -3,12 +3,17 @@ import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 
 import App from './components/App';
-import HTML from './components/App/HTML';
+import router from './routes/router';
 
-function render(Component) {
+async function render(Component) {
+  const { pathname } = window.location;
+  const Route = await router.resolve({ pathname });
+
   ReactDOM.hydrate(
     <AppContainer>
-      <Component/>
+      <Component>
+        <Route />
+      </Component>
     </AppContainer>,
     document.getElementById('root'),
   );

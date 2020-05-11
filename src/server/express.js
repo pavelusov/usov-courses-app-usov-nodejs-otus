@@ -1,5 +1,4 @@
 import express from 'express';
-import path from 'express';
 import expressStaticGzip from 'express-static-gzip';
 
 // Webpack
@@ -14,7 +13,6 @@ import configProdServer from '../../config/webpack.prod-Server';
 
 const app = express();
 const isProd = process.env.NODE_ENV === 'production';
-
 
 /**
  * Development
@@ -33,9 +31,12 @@ if (!isProd) {
   app.use(hotServerMiddleware(compilers));
 } else {
   console.info('** Production **');
-  const render = require('./render').default;
-  app.use(expressStaticGzip('dist'));
-  app.use(render());
+  webpack([configProdClient, configProdServer]).run((err, stats) => {
+    const render = require('../../build/prod-server-bundle.js').default;
+    app.use(expressStaticGzip('dist'));
+    app.use(render());
+  });
+
 }
 
 const PORT = process.env.PORT || 3000;

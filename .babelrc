@@ -12,6 +12,7 @@
     "babel-preset-react"
   ],
   "plugins": [
+    "transform-es2015-destructuring",
     "transform-runtime",
     "react-hot-loader/babel"
   ]
