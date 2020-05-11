@@ -2,21 +2,33 @@ const path = require('path');
 const webpack = require('webpack');
 const htmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-const UglifyPlugin = require('uglifyjs-webpack-plugin');
-const CompressionPlugin = require('compression-webpack-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const nodeExternals  = require('webpack-node-externals');
 
 module.exports = env => {
   return {
+    name: 'server',
     entry: {
-      main: ['babel-polyfill', './src/main.js']
-      // main: ['core-js/fn/promise', './src/main.js']
+      server: './src/server/main.js'
     },
     mode: 'production',
     output: {
       filename: '[name]-bundle.js',
-      path: path.resolve(__dirname, '../dist'),
-      publicPath: '/',
+      path: path.resolve(__dirname, '../build'),
+    },
+    target: "node",
+    externals: nodeExternals(),
+    optimization: {
+      splitChunks: {
+        chunks: "all",
+        cacheGroups: {
+          vendor: {
+            name: 'vendor',
+            chunks: 'initial',
+            minChunks: 2
+          }
+        }
+      }
     },
     module: {
       rules: [
@@ -55,17 +67,10 @@ module.exports = env => {
       new MiniCssExtractPlugin({
         filename: '[name]-[contenthash].css',
       }),
-      new htmlWebpackPlugin({
-        template: './src/index.html'
-      }),
       new webpack.DefinePlugin({
         'process.env': {
           NODE_ENV: JSON.stringify(env.NODE_ENV),
         }
-      }),
-      new UglifyPlugin(),
-      new CompressionPlugin({
-        algorithm: 'gzip'
       }),
     ]
   }

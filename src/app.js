@@ -3,9 +3,10 @@ import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 
 import App from './components/App';
+import HTML from './components/App/HTML';
 
 function render(Component) {
-  ReactDOM.render(
+  ReactDOM.hydrate(
     <AppContainer>
       <Component/>
     </AppContainer>,

@@ -1,17 +1,20 @@
 const path = require('path');
 const webpack = require('webpack');
-const htmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
+  name: 'client',
   entry: {
+    vendor: ['react', 'react-dom'],
     main: [
-      'babel-polyfill',
-      'babel-runtime/regenerator',
+      // 'babel-polyfill',
       'react-hot-loader/patch',
+      'babel-runtime/regenerator',
+      // 'babel-register',
       'webpack-hot-middleware/client?reload=true',
-      './src/main.js',
-    ]
+      './src/main.js'],
+
     // main: ['core-js/fn/promise', './src/main.js']
   },
   mode: 'development',
@@ -34,8 +37,12 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          { loader: 'style-loader' },
-          { loader: 'css-loader' }
+          {
+            loader: MiniCssExtractPlugin.loader
+          },
+          {
+            loader: 'css-loader',
+          }
         ]
       },
       {
@@ -59,8 +66,13 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new htmlWebpackPlugin({
-      template: './src/index.html'
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+    }),
+    new webpack.DefinePlugin({
+      "process.env": {
+        NODE_ENV: JSON.stringify('development')
+      }
     }),
   ]
 };

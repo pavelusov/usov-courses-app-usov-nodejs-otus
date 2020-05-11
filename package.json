@@ -4,12 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --config=config/webpack.dev.js",
-    "build": "webpack --config=config/webpack.prod.js --env.NODE_ENV=production",
-    "build:dev": "webpack --config=config/webpack.dev.js",
-    "dev": "nodemon --inspect --watch config --watch src/server src/server/main.js",
-    "prod": "NODE_ENV=production node src/server/main.js"
+    "prod": "NODE_ENV=production node src/server/main.js",
+    "dev": "nodemon --watch config --watch src/server --inspect src/server/main.js"
   },
   "keywords": [],
   "author": "",
@@ -43,7 +39,9 @@
     "webpack-cli": "^3.3.11",
     "webpack-dev-middleware": "^1.12.0",
     "webpack-dev-server": "^3.11.0",
-    "webpack-hot-middleware": "^2.25.0"
+    "webpack-hot-middleware": "^2.25.0",
+    "webpack-hot-server-middleware": "^0.3.2",
+    "webpack-node-externals": "^1.6.0"
   },
   "dependencies": {
     "express": "^4.17.1",

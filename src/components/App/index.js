@@ -16,7 +16,7 @@ class App extends Component {
   render() {
     const { c } = this.state;
     return (
-      <div onClick={this.onClick.bind(this)}>App44 Component hello {c}</div>
+      <div onClick={this.onClick.bind(this)}>App Component hello {c}</div>
     )
   }
 }
